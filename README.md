@@ -1,2 +1,286 @@
-# prime
-Prime explained media 
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prime Explained - Interactive Tech & Networking Tools</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --accent-blue: #38bdf8;
+      --accent-green: #22c55e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 0 20px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: var(--accent-blue);
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Form & Input Styling */
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-size: 1rem;
+    }
+
+    button, .btn {
+      display: inline-block;
+      background: var(--accent-blue);
+      color: var(--bg-dark);
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    button:hover, .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Calculator Results */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+      background: var(--bg-dark);
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .result-item span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .result-item strong {
+      font-size: 1.1rem;
+      color: var(--accent-green);
+    }
+
+    /* Packet Visualizer */
+    .visualizer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-dark);
+      padding: 30px 15px;
+      border-radius: 8px;
+      position: relative;
+      margin-top: 15px;
+    }
+
+    .node {
+      text-align: center;
+      z-index: 2;
+    }
+
+    .node-icon {
+      font-size: 2rem;
+      background: var(--card-bg);
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-blue);
+      margin: 0 auto 5px;
+    }
+
+    .packet {
+      width: 16px;
+      height: 16px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+      display: none;
+    }
+
+    @keyframes sendPacket {
+      0% { left: 10%; }
+      50% { left: 50%; }
+      100% { left: 85%; }
+    }
+
+    .animate-packet {
+      display: block;
+      animation: sendPacket 2s ease-in-out infinite;
+    }
+
+    /* Newsletter Form */
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>@primeexplained</h1>
+    <p>Kayan aikin gidan yanar gizo kyauta don fahimtar Networking da Digital Concepts</p>
+  </header>
+
+  <!-- Subnet Calculator Section -->
+  <div class="section-card">
+    <div class="section-title">🧮 Real-Time Subnet Calculator</div>
+    <div class="input-group">
+      <label for="ipInput">Shigar da IP Address & Subnet (misali: 192.168.1.1/24):</label>
+      <input type="text" id="ipInput" value="192.168.1.1/24" oninput="calculateSubnet()">
+    </div>
+    
+    <div class="results-grid">
+      <div class="result-item">
+        <span>Network Address:</span>
+        <strong id="netAddr">192.168.1.0</strong>
+      </div>
+      <div class="result-item">
+        <span>Subnet Mask:</span>
+        <strong id="subMask">255.255.255.0</strong>
+      </div>
+      <div class="result-item">
+        <span>Usable Hosts:</span>
+        <strong id="totalHosts">254</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Packet Visualizer Section -->
+  <div class="section-card">
+    <div class="section-title">📡 Packet Routing Visualizer</div>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Danna maɓallin da ke ƙasa don kallon yadda saƙon packet ke tafiya daga Client zuwa Server.</p>
+    
+    <div class="visualizer-container">
+      <div class="packet" id="packetDot"></div>
+      <div class="node">
+        <div class="node-icon">💻</div>
+        <small>Client</small>
+      </div>
+      <div class="node">
+        <div class="node-icon">🌐</div>
+        <small>Router</small>
+      </div>
+      <div class="node">
+        <div class="node-icon">🖥️</div>
+        <small>Server</small>
+      </div>
+    </div>
+    
+    <button style="margin-top: 15px;" onclick="toggleAnimation()">Simulate Packet Flow</button>
+  </div>
+
+  <!-- Email Subscription Section -->
+  <div class="section-card">
+    <div class="section-title">📩 Yi Subscribe Domin Samu Cheat Sheets & Updates</div>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Shigar da imel ɗinka don karɓar sababbin kayan ilimi kai tsaye a akwatinka.</p>
+    
+    <!-- Sauya YOUR_FORM_ID zuwa ainihin ID dinka na Formspree -->
+    <form class="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" placeholder="Shigar da adreshin Gmail ɗinka..." required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <script>
+    function calculateSubnet() {
+      const val = document.getElementById('ipInput').value;
+      const parts = val.split('/');
+      
+      if(parts.length === 2) {
+        const ip = parts[0];
+        const cidr = parseInt(parts[1]);
+        
+        if(cidr >= 8 && cidr <= 32) {
+          document.getElementById('netAddr').innerText = ip;
+          document.getElementById('totalHosts').innerText = Math.pow(2, 32 - cidr) - 2;
+          
+          if(cidr === 24) document.getElementById('subMask').innerText = "255.255.255.0";
+          else if(cidr === 16) document.getElementById('subMask').innerText = "255.255.0.0";
+          else if(cidr === 8) document.getElementById('subMask').innerText = "255.0.0.0";
+          else document.getElementById('subMask').innerText = "/" + cidr;
+        }
+      }
+    }
+
+    function toggleAnimation() {
+      const dot = document.getElementById('packetDot');
+      dot.classList.toggle('animate-packet');
+    }
+  </script>
+
+</body>
+</html>
