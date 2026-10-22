@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="ha">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prime Explained - Interactive Tech & Networking Tools</title>
   <style>
     :root {
-      --bg-dark: #0f172a;
-      --card-bg: #1e293b;
-      --accent-blue: #38bdf8;
-      --accent-green: #22c55e;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
+      --bg-light: #ffffff;
+      --card-bg: #f8fafc;
+      --accent-blue: #0284c7;
+      --accent-green: #16a34a;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
     }
 
     * {
@@ -23,7 +23,7 @@
     }
 
     body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg-light);
       color: var(--text-main);
       line-height: 1.6;
       padding: 20px;
@@ -53,6 +53,7 @@
       border-radius: 12px;
       padding: 24px;
       margin-bottom: 30px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     .section-title {
@@ -81,7 +82,7 @@
       padding: 12px;
       border-radius: 6px;
       border: 1px solid var(--border-color);
-      background: var(--bg-dark);
+      background: var(--bg-light);
       color: var(--text-main);
       font-size: 1rem;
     }
@@ -89,7 +90,7 @@
     button, .btn {
       display: inline-block;
       background: var(--accent-blue);
-      color: var(--bg-dark);
+      color: #ffffff;
       padding: 12px 20px;
       border: none;
       border-radius: 6px;
@@ -109,9 +110,10 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 15px;
       margin-top: 15px;
-      background: var(--bg-dark);
+      background: var(--bg-light);
       padding: 15px;
       border-radius: 8px;
+      border: 1px solid var(--border-color);
     }
 
     .result-item span {
@@ -130,9 +132,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--bg-dark);
+      background: var(--bg-light);
       padding: 30px 15px;
       border-radius: 8px;
+      border: 1px solid var(--border-color);
       position: relative;
       margin-top: 15px;
     }
@@ -192,14 +195,14 @@
 
   <header>
     <h1>@primeexplained</h1>
-    <p>Kayan aikin gidan yanar gizo kyauta don fahimtar Networking da Digital Concepts</p>
+    <p>Free interactive web tools for understanding networking and digital concepts</p>
   </header>
 
   <!-- Subnet Calculator Section -->
   <div class="section-card">
     <div class="section-title">🧮 Real-Time Subnet Calculator</div>
     <div class="input-group">
-      <label for="ipInput">Shigar da IP Address & Subnet (misali: 192.168.1.1/24):</label>
+      <label for="ipInput">Enter IP Address & Subnet (e.g., 192.168.1.1/24):</label>
       <input type="text" id="ipInput" value="192.168.1.1/24" oninput="calculateSubnet()">
     </div>
     
@@ -222,7 +225,7 @@
   <!-- Packet Visualizer Section -->
   <div class="section-card">
     <div class="section-title">📡 Packet Routing Visualizer</div>
-    <p style="font-size: 0.9rem; color: var(--text-muted);">Danna maɓallin da ke ƙasa don kallon yadda saƙon packet ke tafiya daga Client zuwa Server.</p>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Click the button below to simulate network packet routing from Client to Server.</p>
     
     <div class="visualizer-container">
       <div class="packet" id="packetDot"></div>
@@ -245,12 +248,11 @@
 
   <!-- Email Subscription Section -->
   <div class="section-card">
-    <div class="section-title">📩 Yi Subscribe Domin Samu Cheat Sheets & Updates</div>
-    <p style="font-size: 0.9rem; color: var(--text-muted);">Shigar da imel ɗinka don karɓar sababbin kayan ilimi kai tsaye a akwatinka.</p>
+    <div class="section-title">📩 Subscribe for Cheat Sheets & Updates</div>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Get free tech visual guides and cheat sheets directly in your inbox.</p>
     
-    <!-- Sauya YOUR_FORM_ID zuwa ainihin ID dinka na Formspree -->
     <form class="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <input type="email" name="email" placeholder="Shigar da adreshin Gmail ɗinka..." required>
+      <input type="email" name="email" placeholder="Enter your email address..." required>
       <button type="submit">Subscribe</button>
     </form>
   </div>
