@@ -1,285 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prime Explained - Interactive Tech & Networking Tools</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prime Explained — Interactive Networking & Digital Tools</title>
+  
+  <!-- Modern Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-light: #ffffff;
-      --card-bg: #f8fafc;
-      --accent-blue: #0284c7;
-      --accent-green: #16a34a;
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent-green: #10b981;
       --text-main: #0f172a;
       --text-muted: #64748b;
-      --border-color: #e2e8f0;
+      --border: #e2e8f0;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Inter', sans-serif;
     }
 
     body {
-      background-color: var(--bg-light);
+      background-color: var(--bg-main);
       color: var(--text-main);
       line-height: 1.6;
-      padding: 20px;
-      max-width: 1000px;
+      padding: 40px 20px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
+    /* Hero Header */
     header {
       text-align: center;
-      padding: 40px 0 20px;
+      margin-bottom: 50px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      border: 1px solid #dbeafe;
     }
 
     header h1 {
-      font-size: 2.2rem;
-      color: var(--accent-blue);
-      margin-bottom: 10px;
+      font-size: 2.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 12px;
     }
 
     header p {
       color: var(--text-muted);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    .section-card {
+    /* Cards */
+    .card {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 30px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow);
     }
 
-    .section-title {
-      font-size: 1.4rem;
-      margin-bottom: 15px;
-      color: var(--accent-blue);
+    .card-header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
-    /* Form & Input Styling */
-    .input-group {
-      margin-bottom: 15px;
+    .card-icon {
+      font-size: 1.5rem;
+      background: #f1f5f9;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
     }
 
-    label {
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    /* Form Inputs */
+    .input-label {
       display: block;
       font-size: 0.9rem;
+      font-weight: 500;
       color: var(--text-muted);
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
 
-    input[type="text"], input[type="email"] {
+    .input-field {
       width: 100%;
-      padding: 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      background: var(--bg-light);
-      color: var(--text-main);
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
       font-size: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      outline: none;
+      transition: all 0.2s ease;
+      background: #fafafa;
     }
 
-    button, .btn {
-      display: inline-block;
-      background: var(--accent-blue);
-      color: #ffffff;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s ease;
+    .input-field:focus {
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
 
-    button:hover, .btn:hover {
-      opacity: 0.9;
-    }
-
-    /* Calculator Results */
+    /* Calculator Output Grid */
     .results-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 15px;
-      background: var(--bg-light);
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
+      gap: 16px;
+      margin-top: 24px;
     }
 
-    .result-item span {
+    .result-box {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .result-box label {
       display: block;
       font-size: 0.8rem;
       color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .result-item strong {
+    .result-box span {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 1.1rem;
-      color: var(--accent-green);
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 4px;
+      display: block;
     }
 
-    /* Packet Visualizer */
-    .visualizer-container {
+    /* Packet Routing Visualizer */
+    .vis-stage {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--bg-light);
-      padding: 30px 15px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
+      background: #f8fafc;
+      padding: 40px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
       position: relative;
-      margin-top: 15px;
+      margin: 20px 0;
+      overflow: hidden;
     }
 
     .node {
       text-align: center;
+      position: relative;
       z-index: 2;
     }
 
-    .node-icon {
-      font-size: 2rem;
-      background: var(--card-bg);
-      width: 60px;
-      height: 60px;
-      line-height: 60px;
-      border-radius: 50%;
-      border: 2px solid var(--accent-blue);
-      margin: 0 auto 5px;
+    .node-box {
+      width: 64px;
+      height: 64px;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
-    .packet {
-      width: 16px;
-      height: 16px;
+    .node span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .packet-dot {
+      width: 14px;
+      height: 14px;
       background: var(--accent-green);
       border-radius: 50%;
       position: absolute;
-      top: 50%;
+      top: 42%;
       left: 10%;
       transform: translateY(-50%);
+      box-shadow: 0 0 12px var(--accent-green);
       display: none;
+      z-index: 3;
     }
 
-    @keyframes sendPacket {
+    @keyframes routePacket {
       0% { left: 10%; }
       50% { left: 50%; }
-      100% { left: 85%; }
+      100% { left: 88%; }
     }
 
     .animate-packet {
       display: block;
-      animation: sendPacket 2s ease-in-out infinite;
+      animation: routePacket 2.5s ease-in-out infinite;
     }
 
-    /* Newsletter Form */
+    .btn {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Newsletter Section */
+    .newsletter-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #fff;
+      border: none;
+    }
+
+    .newsletter-card .card-title,
+    .newsletter-card p {
+      color: #fff;
+    }
+
+    .newsletter-card p {
+      color: #94a3b8;
+    }
+
     .newsletter-form {
       display: flex;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 12px;
+      margin-top: 20px;
     }
 
     .newsletter-form input {
       flex: 1;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .newsletter-form input::placeholder {
+      color: #94a3b8;
+    }
+
+    .newsletter-form button {
+      background: var(--accent-green);
+    }
+
+    .newsletter-form button:hover {
+      background: #059669;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header>
-    <h1>@primeexplained</h1>
-    <p>Free interactive web tools for understanding networking and digital concepts</p>
+    <div class="badge">@primeexplained</div>
+    <h1>Interactive Tech Tools</h1>
+    <p>Simplified networking calculators, visualizations, and cheat sheets designed for curious minds.</p>
   </header>
 
-  <!-- Subnet Calculator Section -->
-  <div class="section-card">
-    <div class="section-title">🧮 Real-Time Subnet Calculator</div>
-    <div class="input-group">
-      <label for="ipInput">Enter IP Address & Subnet (e.g., 192.168.1.1/24):</label>
-      <input type="text" id="ipInput" value="192.168.1.1/24" oninput="calculateSubnet()">
+  <!-- Subnet Calculator -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🧮</div>
+      <div class="card-title">Real-Time Subnet Calculator</div>
     </div>
-    
+
+    <label class="input-label" for="ipInput">IP Address & CIDR Prefix:</label>
+    <input type="text" id="ipInput" class="input-field" value="192.168.1.15/24" oninput="calcSubnet()" placeholder="e.g. 10.0.0.1/16">
+
     <div class="results-grid">
-      <div class="result-item">
-        <span>Network Address:</span>
-        <strong id="netAddr">192.168.1.0</strong>
+      <div class="result-box">
+        <label>Network IP</label>
+        <span id="resNet">192.168.1.0</span>
       </div>
-      <div class="result-item">
-        <span>Subnet Mask:</span>
-        <strong id="subMask">255.255.255.0</strong>
+      <div class="result-box">
+        <label>Subnet Mask</label>
+        <span id="resMask">255.255.255.0</span>
       </div>
-      <div class="result-item">
-        <span>Usable Hosts:</span>
-        <strong id="totalHosts">254</strong>
+      <div class="result-box">
+        <label>Usable Hosts</label>
+        <span id="resHosts">254</span>
       </div>
     </div>
   </div>
 
-  <!-- Packet Visualizer Section -->
-  <div class="section-card">
-    <div class="section-title">📡 Packet Routing Visualizer</div>
-    <p style="font-size: 0.9rem; color: var(--text-muted);">Click the button below to simulate network packet routing from Client to Server.</p>
-    
-    <div class="visualizer-container">
-      <div class="packet" id="packetDot"></div>
+  <!-- Packet Visualizer -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">📡</div>
+      <div class="card-title">Packet Routing Visualizer</div>
+    </div>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">Watch how data packets travel across network nodes in real-time.</p>
+
+    <div class="vis-stage">
+      <div class="packet-dot" id="dot"></div>
+      
       <div class="node">
-        <div class="node-icon">💻</div>
-        <small>Client</small>
+        <div class="node-box">💻</div>
+        <span>Client</span>
       </div>
       <div class="node">
-        <div class="node-icon">🌐</div>
-        <small>Router</small>
+        <div class="node-box">🌐</div>
+        <span>Router</span>
       </div>
       <div class="node">
-        <div class="node-icon">🖥️</div>
-        <small>Server</small>
+        <div class="node-box">🖥️</div>
+        <span>Server</span>
       </div>
     </div>
-    
-    <button style="margin-top: 15px;" onclick="toggleAnimation()">Simulate Packet Flow</button>
+
+    <button class="btn" onclick="toggleVis()">Simulate Packet Routing</button>
   </div>
 
-  <!-- Email Subscription Section -->
-  <div class="section-card">
-    <div class="section-title">📩 Subscribe for Cheat Sheets & Updates</div>
-    <p style="font-size: 0.9rem; color: var(--text-muted);">Get free tech visual guides and cheat sheets directly in your inbox.</p>
-    
+  <!-- Email Subscription -->
+  <div class="card newsletter-card">
+    <div class="card-header">
+      <div class="card-icon" style="background: rgba(255,255,255,0.1);">📩</div>
+      <div class="card-title">Get Free Networking Cheat Sheets</div>
+    </div>
+    <p>Join the newsletter to receive visual guides, tech summaries, and video updates directly in your inbox.</p>
+
+    <!-- Update action with your Kit or Formspree URL -->
     <form class="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <input type="email" name="email" placeholder="Enter your email address..." required>
-      <button type="submit">Subscribe</button>
+      <input type="email" name="email" class="input-field" placeholder="Enter your email address..." required>
+      <button type="submit" class="btn">Subscribe Free</button>
     </form>
   </div>
 
+  <footer>
+    <p>© Prime Explained. Built for educational clarity.</p>
+  </footer>
+
   <script>
-    function calculateSubnet() {
-      const val = document.getElementById('ipInput').value;
+    function calcSubnet() {
+      const val = document.getElementById('ipInput').value.trim();
       const parts = val.split('/');
       
       if(parts.length === 2) {
         const ip = parts[0];
         const cidr = parseInt(parts[1]);
         
-        if(cidr >= 8 && cidr <= 32) {
-          document.getElementById('netAddr').innerText = ip;
-          document.getElementById('totalHosts').innerText = Math.pow(2, 32 - cidr) - 2;
+        if(cidr >= 1 && cidr <= 32) {
+          const hosts = Math.max(0, Math.pow(2, 32 - cidr) - 2);
+          document.getElementById('resHosts').innerText = hosts.toLocaleString();
           
-          if(cidr === 24) document.getElementById('subMask').innerText = "255.255.255.0";
-          else if(cidr === 16) document.getElementById('subMask').innerText = "255.255.0.0";
-          else if(cidr === 8) document.getElementById('subMask').innerText = "255.0.0.0";
-          else document.getElementById('subMask').innerText = "/" + cidr;
+          // Simple subnet calculation representation
+          const ipOctets = ip.split('.');
+          if(ipOctets.length === 4) {
+            if(cidr >= 24) {
+              document.getElementById('resNet').innerText = `${ipOctets[0]}.${ipOctets[1]}.${ipOctets[2]}.0`;
+              document.getElementById('resMask').innerText = '255.255.255.0';
+            } else if(cidr >= 16) {
+              document.getElementById('resNet').innerText = `${ipOctets[0]}.${ipOctets[1]}.0.0`;
+              document.getElementById('resMask').innerText = '255.255.0.0';
+            } else if(cidr >= 8) {
+              document.getElementById('resNet').innerText = `${ipOctets[0]}.0.0.0`;
+              document.getElementById('resMask').innerText = '255.0.0.0';
+            }
+          }
         }
       }
     }
 
-    function toggleAnimation() {
-      const dot = document.getElementById('packetDot');
+    function toggleVis() {
+      const dot = document.getElementById('dot');
       dot.classList.toggle('animate-packet');
     }
   </script>
